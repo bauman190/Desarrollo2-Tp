@@ -32,7 +32,10 @@ public class movment : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.AddForce(new Vector3(moveImput.x, 0, moveImput.y) * speed, ForceMode.Force);
+        Vector3 forward = transform.forward;
+        Vector3 right = transform.right;
+        Vector3 moveDireciton = (right * moveImput.x + forward * moveImput.y).normalized;
+        rb.AddForce(moveDireciton * speed, ForceMode.Force);
 
         if (jump)
         {
