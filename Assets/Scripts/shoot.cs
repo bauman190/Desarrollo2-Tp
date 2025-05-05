@@ -1,15 +1,21 @@
 using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class shoot : MonoBehaviour
 {
-    [SerializeField] private GameObject GunPreFab;
+    [SerializeField] private Transform Tip;
     [SerializeField] private GameObject BulletPreFab;
+    [SerializeField] private InputActionReference shootAction;
 
-
-    void Start()
+    private void OnEnable()
     {
-        GameObject bullet = Instantiate(BulletPreFab, GunPreFab.transform.Find("Tip").position, transform.rotation);
+        shootAction.action.performed += HandleShootImput;
+    }
+
+    private void HandleShootImput(InputAction.CallbackContext context)
+    {
+        GameObject bullet = Instantiate(BulletPreFab, Tip.position, transform.rotation);
     }
 
 }
